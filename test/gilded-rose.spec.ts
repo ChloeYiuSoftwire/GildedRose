@@ -188,7 +188,7 @@ describe("Gilded Rose", function () {
       const gildedRose = new GildedRose([
         new Item("Conjured foo", 9, 10),
         new Item("Conjured Backstage", 4, 10),
-        new Item("Conjured Aged Brie", 9, 10),
+        new Item("Conjured Aged Brie", -2, 10),
       ]);
       const initialQuality0 = gildedRose.items[0].quality;
       const initialQuality1 = gildedRose.items[1].quality;
