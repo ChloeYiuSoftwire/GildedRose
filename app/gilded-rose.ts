@@ -19,6 +19,10 @@ export class GildedRose { // an array of items
 
   updateQuality() { // every time it runs, one day has passed so sellIn should drop
     for (let i = 0; i < this.items.length; i++) {
+        const name = this.items[i].name
+        const sellIn = this.items[i].sellIn;
+        const quality = this.items[i].quality;
+
       if (
         this.items[i].name != "Aged Brie" &&
         this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
@@ -49,9 +53,7 @@ export class GildedRose { // an array of items
       }
 
       // update sellIn values 
-      if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-        this.items[i].sellIn = this.items[i].sellIn - 1;
-      }
+      this.items[i].sellIn = (name == "Sulfuras, Hand of Ragnaros") ? sellIn : sellIn - 1;
 
       if (this.items[i].sellIn < 0) {
         if (this.items[i].name != "Aged Brie") {
