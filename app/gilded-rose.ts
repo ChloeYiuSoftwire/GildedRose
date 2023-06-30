@@ -22,11 +22,10 @@ export class GildedRose {
       const name = this.items[i].name;
       const prevSellIn = this.items[i].sellIn;
 
-      /*
       // update quality
       switch (name) {
         case "Sulfuras":
-          // nothing to update
+          this.items[i].quality = 80;
           break;
         case "Backstage":
           switch (true) {
@@ -55,6 +54,7 @@ export class GildedRose {
           }
           break;
         default: // normal items
+          console.log(name);
           switch (true) {
             case prevSellIn <= 0:
               this.items[i].quality -= 2;
@@ -66,11 +66,19 @@ export class GildedRose {
           break;
       }
 
+      // check threshold
+      const qualityBeforeThreshold = this.items[i].quality;
+      if (name != "Sulfuras") {
+        this.items[i].quality =
+          qualityBeforeThreshold < 0 ? 0 : this.items[i].quality; // quality >= 0
+        this.items[i].quality =
+          qualityBeforeThreshold > 50 ? 50 : this.items[i].quality; // quality <= 50
+      }
+
       // update sellIn values
       this.items[i].sellIn = name == "Sulfuras" ? prevSellIn : prevSellIn - 1;
-*/
 
-      
+      /*
       if (
         this.items[i].name != "Aged Brie" &&
         this.items[i].name != "Backstage"
@@ -118,7 +126,7 @@ export class GildedRose {
           }
         }
       }
-    
+    */
     }
     return this.items;
   }
