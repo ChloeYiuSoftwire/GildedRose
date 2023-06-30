@@ -22,44 +22,53 @@ export class GildedRose {
       const name = this.items[i].name;
       const prevSellIn = this.items[i].sellIn;
 
-      /*
-            // update quality
-            switch (name) {
-              case "Sulfuras":
-                // nothing to update
-                break;
-              case "Backstage":
-              case "Aged Brie":
-                switch (true) {
-                  case prevSellIn <= 0:
-                    this.items[i].quality = 0;
-                    break;
-                  case prevSellIn <= 5:
-                    this.items[i].quality += 3;
-                    break;
-                  case prevSellIn <= 10:
-                    this.items[i].quality += 2;
-                    break;
-                  default:
-                    this.items[i].quality += 1;
-                    break;
-                }
-                break;
-              default: // normal items
-                switch (true) {
-                  case prevSellIn <= 0:
-                    this.items[i].quality -= 2;
-                    break;
-                  default:
-                    this.items[i].quality -= 1;
-                    break;
-                }
-                break;
-            }
-      
-            // update sellIn values
-            this.items[i].sellIn = name == "Sulfuras" ? prevSellIn : prevSellIn - 1; */
+      // update quality
+      switch (name) {
+        case "Sulfuras":
+          // nothing to update
+          break;
+        case "Backstage":
+          switch (true) {
+            case prevSellIn <= 0:
+              this.items[i].quality = 0;
+              break;
+            case prevSellIn <= 5:
+              this.items[i].quality += 3;
+              break;
+            case prevSellIn <= 10:
+              this.items[i].quality += 2;
+              break;
+            default:
+              this.items[i].quality += 1;
+              break;
+          }
+          break;
+        case "Aged Brie":
+          switch (true) {
+            case prevSellIn <= 0:
+              this.items[i].quality += 2;
+              break;
+            default:
+              this.items[i].quality += 1;
+              break;
+          }
+          break;
+        default: // normal items
+          switch (true) {
+            case prevSellIn <= 0:
+              this.items[i].quality -= 2;
+              break;
+            default:
+              this.items[i].quality -= 1;
+              break;
+          }
+          break;
+      }
 
+      // update sellIn values
+      this.items[i].sellIn = name == "Sulfuras" ? prevSellIn : prevSellIn - 1;
+
+      /*
       if (
         this.items[i].name != "Aged Brie" &&
         this.items[i].name != "Backstage"
@@ -107,8 +116,8 @@ export class GildedRose {
           }
         }
       }
+    */
     }
-
     return this.items;
   }
 }
