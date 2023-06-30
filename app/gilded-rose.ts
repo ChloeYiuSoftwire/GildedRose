@@ -55,6 +55,7 @@ export class GildedRose { // an array of items
       // update sellIn values 
       this.items[i].sellIn = (name == "Sulfuras, Hand of Ragnaros") ? sellIn : sellIn - 1;
 
+      // update quality  
       if (this.items[i].sellIn < 0) {
         if (this.items[i].name != "Aged Brie") {
           if (
