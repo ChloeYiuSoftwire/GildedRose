@@ -6,6 +6,7 @@ describe("Gilded Rose", function () {
     it("item.name should equal to first argument in function", function () {
       const gildedRose = new GildedRose([new Item("foo", 0, 0)]);
       const items = gildedRose.updateQuality();
+
       expect(items[0].name).to.equal("foo");
     });
   });
@@ -16,6 +17,7 @@ describe("Gilded Rose", function () {
       const initialSellIn = gildedRose.items[0].sellIn;
       gildedRose.updateQuality();
       const finalSellIn = gildedRose.items[0].sellIn;
+
       expect(finalSellIn - initialSellIn).to.equal(0);
     });
 
@@ -24,6 +26,7 @@ describe("Gilded Rose", function () {
       const initialSellIn = gildedRose.items[0].sellIn;
       gildedRose.updateQuality();
       const finalSellIn = gildedRose.items[0].sellIn;
+
       expect(finalSellIn - initialSellIn).to.equal(-1);
     });
   });
@@ -35,6 +38,7 @@ describe("Gilded Rose", function () {
         const initialQuality = gildedRose.items[0].quality;
         gildedRose.updateQuality();
         const finalQuality = gildedRose.items[0].quality;
+
         expect(finalQuality - initialQuality).to.equal(0);
       });
     });
@@ -45,6 +49,7 @@ describe("Gilded Rose", function () {
         const initialQuality = gildedRose.items[0].quality;
         gildedRose.updateQuality();
         const finalQuality = gildedRose.items[0].quality;
+
         expect(finalQuality - initialQuality).to.equal(-1);
       });
 
@@ -53,40 +58,54 @@ describe("Gilded Rose", function () {
         const initialQuality = gildedRose.items[0].quality;
         gildedRose.updateQuality();
         const finalQuality = gildedRose.items[0].quality;
+
         expect(finalQuality - initialQuality).to.equal(-2);
       });
     });
 
     describe("Backstage amd Aged Brie", function () {
-      it("Backstage amd Aged Brie - quality increases by 1 when 10 < SellIn", function () {
+      it("Backstage amd Aged Brie - quality increases by 1 when 11 <= SellIn", function () {
         const gildedRose = new GildedRose([new Item("Backstage", 11, 5)]);
         const initialQuality = gildedRose.items[0].quality;
         gildedRose.updateQuality();
         const finalQuality = gildedRose.items[0].quality;
+
         expect(finalQuality - initialQuality).to.equal(1);
       });
 
-      it("Backstage amd Aged Brie - quality increases by 2 when 5 < SellIn <= 10", function () {
-        const gildedRose = new GildedRose([new Item("Backstage", 7, 5)]);
-        const initialQuality = gildedRose.items[0].quality;
+      it("Backstage amd Aged Brie - quality increases by 2 when 6 <= SellIn <= 10", function () {
+        const gildedRose = new GildedRose([new Item("Backstage", 6, 5), new Item("Backstage", 10, 5)]);
+        const initialQuality0 = gildedRose.items[0].quality;
+        const initialQuality1 = gildedRose.items[1].quality;
         gildedRose.updateQuality();
-        const finalQuality = gildedRose.items[0].quality;
-        expect(finalQuality - initialQuality).to.equal(2);
+        const finalQuality0 = gildedRose.items[0].quality;
+        const finalQuality1 = gildedRose.items[1].quality;
+
+        expect(finalQuality0 - initialQuality0).to.equal(2); 
+        expect(finalQuality1 - initialQuality1).to.equal(2);
       });
 
-      it("Backstage amd Aged Brie - quality increases by 3 when 0 < SellIn <= 5", function () {
-        const gildedRose = new GildedRose([new Item("Backstage", 1, 5)]);
-        const initialQuality = gildedRose.items[0].quality;
+      it("Backstage amd Aged Brie - quality increases by 3 when 1 <= SellIn <= 5", function () {
+        const gildedRose = new GildedRose([new Item("Backstage", 1, 5), new Item("Backstage", 5, 5)]);
+        const initialQuality0 = gildedRose.items[0].quality;
+        const initialQuality1 = gildedRose.items[1].quality;
         gildedRose.updateQuality();
-        const finalQuality = gildedRose.items[0].quality;
-        expect(finalQuality - initialQuality).to.equal(3);
+        const finalQuality0 = gildedRose.items[0].quality;
+        const finalQuality1 = gildedRose.items[1].quality;
+
+        expect(finalQuality0 - initialQuality0).to.equal(3); 
+        expect(finalQuality1 - initialQuality1).to.equal(3);
       });
 
       it("Backstage amd Aged Brie - quality drops to 0 when SellIn <= 0", function () {
-        const gildedRose = new GildedRose([new Item("Backstage", 0, 5)]);
+        const gildedRose = new GildedRose([new Item("Backstage", 0, 5), new Item("Backstage", -1, 5)]);
+
         gildedRose.updateQuality();
-        const finalQuality = gildedRose.items[0].quality;
-        expect(finalQuality).to.equal(0);
+        const finalQuality0 = gildedRose.items[0].quality;
+        const finalQuality1 = gildedRose.items[1].quality;
+
+        expect(finalQuality0).to.equal(0); 
+        expect(finalQuality1).to.equal(0);
       });
     });
   });

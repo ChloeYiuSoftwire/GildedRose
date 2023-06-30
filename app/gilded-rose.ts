@@ -22,7 +22,7 @@ export class GildedRose { // an array of items
         const name = this.items[i].name
         const sellIn = this.items[i].sellIn;
         const quality = this.items[i].quality; 
-
+        
       if (
         this.items[i].name != "Aged Brie" &&
         this.items[i].name != "Backstage"
