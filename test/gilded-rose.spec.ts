@@ -164,24 +164,43 @@ describe("Gilded Rose", function () {
       expect(finalQuality0).not.lessThan(0);
       expect(finalQuality1).not.lessThan(0);
       expect(finalQuality2).not.lessThan(0);
-      
     });
 
     it("Non Sulfuras quality should not increase above 50", function () {
-        const gildedRose = new GildedRose([
-          new Item("foo", -5, 50),
-          new Item("Backstage", -5, 50),
-          new Item("Aged Brie", -5, 50)
-        ]);
-        gildedRose.updateQuality();
-        const finalQuality0 = gildedRose.items[0].quality;
-        const finalQuality1 = gildedRose.items[1].quality;
-        const finalQuality2 = gildedRose.items[2].quality;
-  
-        expect(finalQuality0).not.greaterThan(50);
-        expect(finalQuality1).not.greaterThan(50);
-        expect(finalQuality2).not.greaterThan(50);
-        
-      });
+      const gildedRose = new GildedRose([
+        new Item("foo", -5, 50),
+        new Item("Backstage", -5, 50),
+        new Item("Aged Brie", -5, 50),
+      ]);
+      gildedRose.updateQuality();
+      const finalQuality0 = gildedRose.items[0].quality;
+      const finalQuality1 = gildedRose.items[1].quality;
+      const finalQuality2 = gildedRose.items[2].quality;
+
+      expect(finalQuality0).not.greaterThan(50);
+      expect(finalQuality1).not.greaterThan(50);
+      expect(finalQuality2).not.greaterThan(50);
+    });
+  });
+
+  describe("Conjured items", function () {
+    it("Conjured item should change quality twice as normal", function () {
+      const gildedRose = new GildedRose([
+        new Item("Conjured foo", 9, 10),
+        new Item("Conjured Backstage", 4, 10),
+        new Item("Conjured Aged Brie", 9, 10),
+      ]);
+      const initialQuality0 = gildedRose.items[0].quality;
+      const initialQuality1 = gildedRose.items[1].quality;
+      const initialQuality2 = gildedRose.items[2].quality;
+      gildedRose.updateQuality();
+      const finalQuality0 = gildedRose.items[0].quality;
+      const finalQuality1 = gildedRose.items[1].quality;
+      const finalQuality2 = gildedRose.items[2].quality;
+
+      expect(finalQuality0 - initialQuality0).to.equal(-2);
+      expect(finalQuality1 - initialQuality1).to.equal(6);
+      expect(finalQuality2 - initialQuality2).to.equal(4);
+    });
   });
 });
