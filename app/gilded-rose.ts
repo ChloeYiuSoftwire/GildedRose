@@ -22,6 +22,7 @@ export class GildedRose {
       const name = this.items[i].name;
       const prevSellIn = this.items[i].sellIn;
 
+      /*
       // update quality
       switch (name) {
         case "Sulfuras":
@@ -67,8 +68,9 @@ export class GildedRose {
 
       // update sellIn values
       this.items[i].sellIn = name == "Sulfuras" ? prevSellIn : prevSellIn - 1;
+*/
 
-      /*
+      
       if (
         this.items[i].name != "Aged Brie" &&
         this.items[i].name != "Backstage"
@@ -116,7 +118,7 @@ export class GildedRose {
           }
         }
       }
-    */
+    
     }
     return this.items;
   }

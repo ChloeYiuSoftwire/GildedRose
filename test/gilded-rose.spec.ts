@@ -33,13 +33,12 @@ describe("Gilded Rose", function () {
 
   describe("Update Quality", function () {
     describe("Sulfuras", function () {
-      it("Sulfuras items should not have Quality degraded", function () {
+      it("Sulfuras items should remain 80", function () {
         const gildedRose = new GildedRose([new Item("Sulfuras", 5, 80)]);
-        const initialQuality = gildedRose.items[0].quality;
         gildedRose.updateQuality();
         const finalQuality = gildedRose.items[0].quality;
 
-        expect(finalQuality - initialQuality).to.equal(0);
+        expect(finalQuality).to.equal(80);
       });
     });
 
@@ -149,7 +148,40 @@ describe("Gilded Rose", function () {
       expect(finalQuality1 - initialQuality1).to.equal(2);
     });
   });
+
   describe("Quality threshold", function () {
-    it("Quality should not drop below 0", function () {});
+    it("Quality should not drop below 0", function () {
+      const gildedRose = new GildedRose([
+        new Item("foo", -5, 0),
+        new Item("Backstage", -5, 0),
+        new Item("Aged Brie", -5, 0),
+      ]);
+      gildedRose.updateQuality();
+      const finalQuality0 = gildedRose.items[0].quality;
+      const finalQuality1 = gildedRose.items[1].quality;
+      const finalQuality2 = gildedRose.items[2].quality;
+
+      expect(finalQuality0).not.lessThan(0);
+      expect(finalQuality1).not.lessThan(0);
+      expect(finalQuality2).not.lessThan(0);
+      
+    });
+
+    it("Non Sulfuras quality should not increase above 50", function () {
+        const gildedRose = new GildedRose([
+          new Item("foo", -5, 50),
+          new Item("Backstage", -5, 50),
+          new Item("Aged Brie", -5, 50)
+        ]);
+        gildedRose.updateQuality();
+        const finalQuality0 = gildedRose.items[0].quality;
+        const finalQuality1 = gildedRose.items[1].quality;
+        const finalQuality2 = gildedRose.items[2].quality;
+  
+        expect(finalQuality0).not.greaterThan(50);
+        expect(finalQuality1).not.greaterThan(50);
+        expect(finalQuality2).not.greaterThan(50);
+        
+      });
   });
 });
