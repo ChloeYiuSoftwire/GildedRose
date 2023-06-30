@@ -63,8 +63,8 @@ describe("Gilded Rose", function () {
       });
     });
 
-    describe("Backstage and Aged Brie", function () {
-      it("Backstage and Aged Brie - quality increases by 1 when 11 <= prevSellIn", function () {
+    describe("Backstage", function () {
+      it("Backstage - quality increases by 1 when 11 <= prevSellIn", function () {
         const gildedRose = new GildedRose([new Item("Backstage", 11, 5)]);
         const initialQuality = gildedRose.items[0].quality;
         gildedRose.updateQuality();
@@ -100,7 +100,7 @@ describe("Gilded Rose", function () {
         const finalQuality1 = gildedRose.items[1].quality;
 
         expect(finalQuality0 - initialQuality0).to.equal(3);
-        //expect(finalQuality1 - initialQuality1).to.equal(3);
+        expect(finalQuality1 - initialQuality1).to.equal(3);
       });
 
       it("Backstage - quality drops to 0 when prevSellIn <= 0", function () {
@@ -117,8 +117,38 @@ describe("Gilded Rose", function () {
         expect(finalQuality1).to.equal(0);
       });
     });
-  });
 
+    describe("Aged Brie", function () {
+      it("Aged Brie - quality increases by 1 when 1 <= prevSellIn", function () {
+        const gildedRose = new GildedRose([
+          new Item("Aged Brie", 1, 5),
+          new Item("Aged Brie", 11, 5),
+        ]);
+        const initialQuality0 = gildedRose.items[0].quality;
+        const initialQuality1 = gildedRose.items[1].quality;
+        gildedRose.updateQuality();
+        const finalQuality0 = gildedRose.items[0].quality;
+        const finalQuality1 = gildedRose.items[1].quality;
+
+        expect(finalQuality0 - initialQuality0).to.equal(1);
+        expect(finalQuality1 - initialQuality1).to.equal(1);
+      });
+    });
+    it("Aged Brie - quality increases by 2 when prevSellIn <= 0", function () {
+      const gildedRose = new GildedRose([
+        new Item("Aged Brie", 0, 5),
+        new Item("Aged Brie", -1, 5),
+      ]);
+      const initialQuality0 = gildedRose.items[0].quality;
+      const initialQuality1 = gildedRose.items[1].quality;
+      gildedRose.updateQuality();
+      const finalQuality0 = gildedRose.items[0].quality;
+      const finalQuality1 = gildedRose.items[1].quality;
+
+      expect(finalQuality0 - initialQuality0).to.equal(2);
+      expect(finalQuality1 - initialQuality1).to.equal(2);
+    });
+  });
   describe("Quality threshold", function () {
     it("Quality should not drop below 0", function () {});
   });
